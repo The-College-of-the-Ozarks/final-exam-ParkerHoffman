@@ -4,8 +4,12 @@ There are no issues with this class.
 
 Documentation:
 
-@param
-@return
+setPayRate
+User will enter the rate they wish to pay a new coordinator. If this is more than the set maximum rate($20) it will set the pay rate to 20.
+@param double
+
+User will set the job title of the employee to coordinator.
+no @param or @return
 
 */
 public class Coordinator extends Employee

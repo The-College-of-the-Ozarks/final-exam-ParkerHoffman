@@ -12,6 +12,7 @@ Documentation:
 @param
 @return
 
+//Appears to be functional with error handling, untested as of 8:40
 
 */
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class StaffDinnerEvent
       int y;
       int waitStaff;
       int chefs;
-      int[] menuOption = new int[3];
+      int[] menuOption = new int[4];
       eventNum = getEventNumber();
       guests = getGuests();
       for(y = 0; y < menuOption.length; ++y)
@@ -53,8 +54,12 @@ public class StaffDinnerEvent
    }
    public static Waitstaff getWaitstaff()
    {
+      Boolean check=true;
       Scanner in = new Scanner(System.in);
       Waitstaff ws= new Waitstaff();
+
+      while(check){
+     try{
       System.out.print("Enter Employee number for waitstaff >> ");
       ws.setEmployeeNumber(in.nextLine());
       System.out.print("Enter first name >> ");
@@ -64,12 +69,25 @@ public class StaffDinnerEvent
       System.out.print("Enter pay rate >> ");
       ws.setPayRate(in.nextDouble());
       ws.setJobTitle();
+       check=false;
+     }
+
+
+     catch(Exception error){
+       System.out.println("Please enter the number in the form of digits, IE '17'");
+       in.nextLine();
+          }
+      }
       return ws;
    }
    public static Chef getChef()
    {
       Scanner in = new Scanner(System.in);
       Chef bt= new Chef();
+      boolean check=true;
+
+     while(check){
+     try{
       System.out.print("Enter Employee number for Chef >> ");
       bt.setEmployeeNumber(in.nextLine());
       System.out.print("Enter first name >> ");
@@ -79,12 +97,24 @@ public class StaffDinnerEvent
       System.out.print("Enter pay rate >> ");
       bt.setPayRate(in.nextDouble());
       bt.setJobTitle();
-      return bt;
+       check=false;
+     }
+    catch(Exception error){
+      System.out.println("Please enter the number in the form of digits, IE '17'");
+      in.nextLine();
+    }
+     }
+     return bt;
+     
    }
    public static Coordinator getCoordinator()
    {
       Scanner in = new Scanner(System.in);
       Coordinator co= new Coordinator();
+      boolean check=true;
+     while(check){
+
+       try{
       System.out.print("Enter Employee number for coordinator >> ");
       co.setEmployeeNumber(in.nextLine());
       System.out.print("Enter first name >> ");
@@ -94,45 +124,94 @@ public class StaffDinnerEvent
       System.out.print("Enter pay rate >> ");
       co.setPayRate(in.nextDouble());
       co.setJobTitle();
+     check=false;}
+
+       catch(Exception error){
+         System.out.println("Please enter the number in the form of digits, IE '17'");
+      in.nextLine();
+       }
+   }
       return co;
+   
    }
 
    public static String getEventNumber()
    {
-      String num;
+      String num="";
       Scanner input = new Scanner(System.in);
+     boolean check=true;
+
+     while(check){
+       try{
       System.out.print("\nEnter event number >> ");
       num = input.nextLine();
-      return num;
+         check=false;
+      }
+
+       catch(Exception Error){
+         System.out.println("Please enter the number in the form of digits, IE '17'");
+      input.nextLine();
+       }
+     }
+     return num;
    }  
+
+
+  
    public static int getGuests()
    {
-      int guests;
+      int guests=0;
       final int MIN_GUESTS = 5;
       final int MAX_GUESTS = 100;
       Scanner input = new Scanner(System.in);
+     boolean check=true;
+
+     while(check){
+       try{
       System.out.print("Enter number of guests >> ");
       guests = input.nextInt();
       while(guests < MIN_GUESTS || guests > MAX_GUESTS)
       {
           System.out.println("The number of guests must be between " +
             MIN_GUESTS + " and " + MAX_GUESTS);
-          System.out.print("Please renter >> ");
+          System.out.print("Please re-enter >> ");
           guests = input.nextInt();
       } 
       input.nextLine();
-      return guests;
+         check=false;
+       }
+
+       catch(Exception error){
+         System.out.println("Please enter the number in the form of digits, IE '17'");
+      input.nextLine();
+       }
+       
+     }
+     return guests;
    }
+
+
+  
    public static int getType()
    {
-      int eType;
+     boolean check=true;
+      int eType=0;
       Scanner input = new Scanner(System.in);
       System.out.println("Event types are");
       for(int x = 0; x < Event.EVENT_TYPES.length; ++x)
          System.out.println("    " + x + " " + Event.EVENT_TYPES[x]);
+     while(check){
+
+       try{
       System.out.print("Enter event type >> ");
       eType = input.nextInt();
-      return eType;
+         check=false;}
+       catch(Exception error){
+         System.out.println("Please enter the number in the form of digits, IE '17'");
+      input.nextLine();
+       }
+     }
+     return eType;
    }
    public static void displayDetails(DinnerEvent e, int count)
    {
@@ -159,7 +238,7 @@ public class StaffDinnerEvent
    }
    public static String getPhone()
    {
-      String phone;
+           String phone;
       Scanner input = new Scanner(System.in);
       System.out.print("Enter contact phone number >> ");
       phone = input.nextLine();
@@ -167,7 +246,7 @@ public class StaffDinnerEvent
    }
    public static int getMenu(int y)
    {
-      int choice;
+      int choice=0;
       if(y == 0)
          choice = displayEntreeMenu();
       else if (y == 1 || y == 2)
@@ -179,40 +258,72 @@ public class StaffDinnerEvent
    {
       Scanner keyboard = new Scanner(System.in);
       int x;
-      int choice;
+      int choice=0;
+     boolean check=true;
       System.out.println("Please select from the following entrees:");
       for(x = 0; x < DinnerEvent.ENTREES.length; ++x)
          System.out.println(x + "  --  " + DinnerEvent.ENTREES[x]);
       System.out.print("               >> ");
+     while(check){
+       try{
       choice = keyboard.nextInt();
       keyboard.nextLine();
+         check=false;
+      }
+     catch(Exception error){
+       System.out.println("Please enter the number in the form of digits, IE '17'");
+      keyboard.nextLine();
+     }
+     }
       return choice;
+     
    }    
    public static int displaySidesMenu()
    {
       Scanner keyboard = new Scanner(System.in);
       int x;
-      int choice;
+      int choice=0;
+     boolean check=true;
       System.out.println("Please select from the following sides:");
       for(x = 0; x < DinnerEvent.SIDES.length; ++x)
          System.out.println(x + "  --  " + DinnerEvent.SIDES[x]);
       System.out.print("               >> ");
+     while(check){
+       try{
       choice = keyboard.nextInt();
       keyboard.nextLine();
-      return choice;
+         check=false;
+      
+       }
+            catch(Exception error){
+       System.out.println("Please enter the number in the form of digits, IE '17'");
+      keyboard.nextLine();
+     }
+   }
+     return choice;
    }
    public static int displayDessertMenu()
    {
       Scanner keyboard = new Scanner(System.in);
       int x;
-      int choice;
+      int choice=0;
+     boolean check=true;
+     while(check){
+       try{
       System.out.println("Please select from the following desserts:");
       for(x = 0; x < DinnerEvent.DESSERTS.length; ++x)
          System.out.println(x + "  --  " + DinnerEvent.DESSERTS[x]);
       System.out.print("               >> ");
       choice = keyboard.nextInt();
       keyboard.nextLine();
-      return choice;
-   }      
+     check=false;
+      }
+      catch(Exception error){
+       System.out.println("Please enter the number in the form of digits, IE '17'");
+      keyboard.nextLine();
+     }
+   } 
+     return choice;
+   }
       
 }

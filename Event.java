@@ -5,11 +5,24 @@ besides the aforementioned typos.
 
 Documentation:
 
-@param
-@return
+Even constructor
+@param String for event ID
+@param int for number of guests
+or sets this to default status
+sets both, @return nothing
+
+
+setEventNumber
+@param String for event ID
+will check the parameter for a valid ID, and @return a valid ID
+
+setGuests
+@param int for number of guests
+Will make sure guets are within the specified amounts
+
 
 */
-class event
+class Event
 {
    public final static double HIGH_GUEST_PRICE = 35.00;
    public final static double LOW_GUEST_PRICE = 32.00;  
@@ -25,13 +38,15 @@ class event
    private int eventType;
    public Event()
    {
-      This("A000", 0);
+      this("A000", 0);
    } 
+  
    public Event(String num, int guests)
    {
       setEventNumber(num);
       setGuests(guests);
    }
+  
    public void setEventNumber(String num)
    {
       boolean numOk = true;
@@ -40,6 +55,8 @@ class event
         else
          eventNumber = num.toUpperCase();
    }
+
+  
    public void setGuests(int gsts)
    {
       guests = gsts;
@@ -54,22 +71,28 @@ class event
          priceForEvent = guests * HIGH_GUEST_PRICE;
       }
    }
+
+  
    public String getEventNumber()
    {
       return eventNumber;
    }
+  
    public int getGuests()
    {
       return guests;
    }
+  
    public double getPriceForEvent()
    {
       return priceForEvent;
    }
+  
    public double getPricePerGuest()
    {
       return pricePerGuest;
    }
+  
    public String getContactPhone()
    {
       String phone;
@@ -78,6 +101,7 @@ class event
          contactPhone.substring(6, 9);
       return phone;
    }
+  
    public void setContactPhone(String phone)
    {
       final int VALID_LEN = 10;
@@ -86,12 +110,16 @@ class event
       int len = phone.length();
       for(int x = 0; x < len; ++x)
       {
+        
          if(Character.isDigit(phone.charAt(x)))
             contactPhone += phone.charAt(x);
-      
-      if(contactPhone.length() != VALID_LEN)
+      }
+      if(contactPhone.length() != VALID_LEN){
          contactPhone = INVALID_PHONE;
+        }
+       
    }
+     
    public void setEventType(int code)
    {
       if(code < EVENT_TYPES.length)
@@ -114,5 +142,5 @@ class event
          isLarge = true;
       return isLarge;
    }
-   }
+   
 }
